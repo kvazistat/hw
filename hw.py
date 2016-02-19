@@ -58,4 +58,4 @@ if f_count < r_count:
     print('\nThanks for playing! \nYour score: %s. My score: %s. Good joob, you win!' % (r_count, f_count))
 elif (not f_count == 0):
 	print('\nThanks for playing! \nYour score: %s. My score: %s. I\'m win! Don\'t worry^^' % (r_count, f_count))
-	
+raw_input('press any key to exit')
