@@ -1,6 +1,12 @@
+# -*- coding: utf-8 -*-
 import sys
 from random import *
 import collections
+
+if sys.version_info[0] == 2:
+	u_input = raw_input
+else:
+	u_input = input
 
 def create(n):  # create matrix 4x4
     a = []
@@ -89,7 +95,7 @@ def index(matrix):
     return x, y
 
 def errmsg():
-    print('you can not move empty field up cause it is out of game field')
+    print('You try move empty field out of gamefield border, please type another command')
 
 n = 4 #задаем размерность игрового поля
 win_matrix = [['1', '2', '3', '4'], #эталонное игровое поле, получиш которое игра заканчивается
@@ -97,16 +103,15 @@ win_matrix = [['1', '2', '3', '4'], #эталонное игровое поле,
               ['9', '10', '11', '12'],
               ['13', '14', '15', 'empty']]
 
-print("Hello! Welcome to a game 'Fifteens'")
+print("Hello! Welcome to a game 'Fifteens'\nFor navigation use commands up, down, right, left")
 print("If your field be like this, you win. Enjoy!")
 for i in range(n):
         print(win_matrix[i])
-input("Please, type anything if you ready!\n")
+u_input("Please, type anything if you ready!\n")
 
 a = create(n) #создаем рандомное поле
-
 while (not a == win_matrix): #ввод и контроль ввода
-    move = input()
+    move = u_input()
     x, y = index(a)
     if move == 'up':
         if (x - 1 >= 0):
@@ -115,15 +120,15 @@ while (not a == win_matrix): #ввод и контроль ввода
             errmsg()
         continue
     if move == 'down':
-        if (x + 1 <= 3):
+		try:
             a = down(a, x, y)
-        else:
-            errmsg()
+		except IndexError:
+		    errmsg()
         continue
     if move == 'left':
-        if (y - 1 >= 0):
+        try:
             a = left(a, x, y)
-        else:
+        except IndexError:
             errmsg()
         continue
     if move == 'right':
@@ -134,3 +139,4 @@ while (not a == win_matrix): #ввод и контроль ввода
         continue
     else:
         print('wrong command')
+print('Congratulations! You win!')
