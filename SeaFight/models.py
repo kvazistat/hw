@@ -2,7 +2,6 @@
 
 import pickle
 
-
 class player(object):
     def __init__(self, name):
         self.name = name
@@ -10,32 +9,32 @@ class player(object):
     def __str__(self):
         return self.name
 
-class ship(object):
-    def __init__(self, ship_type, coord, one):
+
+class Ship(object):
+    def __init__(self, ship_type, x, y, v_or_h):
         self.ship_type = ship_type
-        self.coord = coord
-        self.one = one # ореол
+        self.x = x
+        self.y = y
+        self.v_or_h = v_or_h
         self.hit = [] # счетчик попаданий по кораблю
 
-    def get_state(self):
-        return self.__class__
+    def set_ship(self, field, n):
+        if self.ship_type == n and self.v_or_h == 'h':
+            for i in range(self.x, self.x + n):
+                field[self.x][i] = 'O'
+        elif self.ship_type == n and self.v_or_h == 'v':
+            for i in range(self.x, self.x + n):
+                field[i][self.y] = 'O'
+        return field
 
-class game_field(object):
+
+class GameField(object):
     def __init__(self):
-        self.field = [0]*100
-
-
-
-
-class Storage(object):
-    __obj = None
-    players = None
-
-    @classmethod
-    def __new__(cls, *args):
-        if cls.__obj is None:
-            cls.__obj = object.__new__(cls)
-            cls.items = []
-        return cls.__obj
+        self.field = [0]*12
+        self.field[0]=[' ','1','2','3','4','5','6','7','8','9','10']
+        for i in range(1,11):
+            self.field[i] = ['s']*11
+        for j in range(1,11):
+            self.field[j][0] = str(j)
 
 
